@@ -1,0 +1,535 @@
+* {
+    position: static;
+    display: block;
+    height: auto;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1em;
+    outline: none;
+    border: none;
+}
+.button-container {
+    display: flex;
+    flex-direction: row; /* or column if you want them stacked vertically */
+    justify-content: space-around; /* Evenly distribute space */
+    margin-top: 20px; /* Add some space above the buttons */
+}
+
+head,
+script,
+link {
+    display: none;
+}
+
+input:focus {
+    outline: none;
+    border: none;
+}
+
+body {
+    background: #000;
+    color: #006400;
+}
+
+html,
+body {
+    background: #006400;
+}
+
+.app {
+    background: #006400;
+}
+
+.app .terminal {
+    background: beige;
+    height: 250px;  
+}
+
+.app .editor {
+    height: 100%;
+}
+
+.app .machiene {
+    height: 100vh;
+}
+
+/* General button styling */
+#stepButton, #resetMemoryButton, #resetRegistersButton, #breakpointButton {
+    background-color: #4cafaf; /* Green background */
+    border: none;              /* Remove default border */
+    color: white;              /* White text */
+    padding: 10px 20px;        /* Padding inside the button */
+    text-align: center;        /* Center the text */
+    text-decoration: none;     /* Remove text underline */
+    display: inline-block;     /* Make it inline with other elements */
+    font-size: 16px;           /* Font size */
+    margin: 4px 2px;           /* Some space around the button */
+    cursor: pointer;           /* Pointer cursor on hover */
+    border-radius: 5px;        /* Rounded corners */
+}
+
+/* Hover effect */
+#stepButton:hover, #resetMemoryButton:hover, #resetRegistersButton:hover, #breakpointButton:hover {
+    background-color: #1b328e; /* Darker green on hover */
+}
+@media screen and (min-width: 700px) {
+    html,
+    body,
+    .container {
+        position: relative;
+        height: 100%;
+        overflow: hidden;
+    }
+    .app {
+        height: 100%;
+    }
+    .app .editor {
+        float: left;
+        width: 70%;
+        height: 100%;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    .app .machiene {
+        float: right;
+        height: 100%;
+        width: 30%;
+        padding: 10px;
+        border-radius: 10px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    body {
+        padding: 1em;
+    }
+    .app {
+        width: 1440px;
+        border: 1em solid black;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+}
+
+.editor .ace_gutter {
+    background: #222 !important;
+    color: #bebebe !important;
+}
+
+.editor .ace_content {
+    background: #faf0e6 !important;
+    color: #000 !important;
+    font-size: .8rem;
+}
+
+.editor .ace_gutter-active-line {
+    background: #000 !important;
+}
+
+.machiene {
+    padding-bottom: 0.5em;
+}
+
+.machiene .clock,
+.machiene .registers {
+    float: right;
+    height: 5em;
+}
+
+.machiene .toolbelt {
+    float:inline-end;
+    margin-top: 100px;
+    padding: .5em;
+    background: #bebebe;
+    margin-bottom: 10px;
+    border-radius: 10px;
+
+}
+
+.machiene .chat {
+    float: right;
+}
+
+.machiene .clock {
+    float: right;
+    width: 100%;
+}
+
+.machiene .decimal-to-hex {
+    float: right;
+    height: 4em;
+}
+
+/* .machiene .pins {
+    float: right;
+    height: 6em;
+} */
+
+.machiene .registers {
+    float: right;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.chat {
+    background: #a5a1a3;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 10px;
+    
+}
+
+.chat input {
+    padding: .5em;
+    background: #191970;
+    color: #fff;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+/* .pins .switches {
+    background: #a5a1a3;
+    width: 100%;
+    height: 100%;
+    padding-left: .25em;
+    padding-right: .25em;
+    border-radius: 10px;
+    padding-top: 10px;
+    margin-top: 25px;
+}
+
+.pins .switches .switch {
+    background: black;
+    border-radius: 2px;
+    float: right;
+    width: calc(100% / 20 - .5em);
+    height: calc(100% / 5 - .5em);
+    margin: .13em;
+}
+
+.pins .switches .switch-on {
+    background: #fff;
+} */
+
+.clock button {
+    float: right;
+    width: 60%;
+    height: 50%;
+    border-radius: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.clock .run,
+.clock .reset,
+.clock .debug,
+.clock .pause,
+.clock .tick,
+.clock .clear {
+    width: 25%;
+}
+
+.clock .debug {
+    border: 1px solid white;
+    background: #9932cc;
+    color: #fff;
+}
+
+.clock .debug:hover {
+    background: #b964e4;
+}
+
+.clock .debug:active {
+    background: #c275e9;
+}
+
+.clock .debug-on {
+    border: 1px solid white;
+    background: #4be586;
+    color: #fff;
+}
+
+.clock .debug-on:hover {
+    background: #3cb76b;
+}
+
+.clock .debug-on:active {
+    background: #2d8950;
+}
+
+.clock .pause {
+    border: 1px solid white;
+    background: #b8860b;
+    color: #fff;
+}
+
+.clock .pause:hover {
+    background: #f7c23b;
+}
+
+.clock .pause:active {
+    background: #f5c345;
+}
+
+.clock .run {
+    border: 1px solid white;
+    background: #006400;
+    color: #fff;
+}
+
+.clock .run:hover {
+    background: #20d820;
+}
+
+.clock .run:active {
+    background: #327099;
+}
+
+.clock .reset {
+    border: 1px solid white;
+    background: #8b0000;
+    color: #fff;
+}
+
+.clock .reset:hover {
+    background: #d83030;
+}
+
+.clock .reset:active {
+    background: #f75656;
+}
+
+.clock .tick {
+    border: 1px solid white;
+    background: #c71585;
+    color: #fff;
+}
+
+.clock .tick:hover {
+    background: #e458b0;
+}
+
+.clock .tick:active {
+    background: #eb5eb7;
+}
+
+.clock .clear {
+    border: 1px solid white;
+    background: 	#7b68ee;
+    color: #fff;
+}
+
+.clock .clear:hover {
+    background: 	#9585ee;
+}
+
+.clock .clear:active {
+    background: 	#9483f5;
+}
+
+.clock .assemble {
+    border: 1px solid white;
+    background: #0000cd;
+    width: 50%;
+    color: #fff;
+}
+
+.clock .assemble:hover {
+    background: #5959ff;
+}
+
+.clock .assemble:active {
+    background: #7373f3;
+}
+
+/* .instruction {
+    background: #69f461 !important;
+} */
+
+/* .constant {
+    background: #70bae5 !important;
+} */
+
+.register {
+    background: #f4c869 !important;
+}
+
+.pointer {
+    background: #79a2fc !important;
+}
+
+.dereference {
+    background: #f28448 !important;
+}
+
+.label {
+    background: #f489f3 !important;
+}
+
+/* .program-counter {
+    background: #fff !important;
+    color: #000;
+} */
+/* 
+.memory {
+    width: 100%;
+    height: 100%;
+    background: #a5a1a3;
+    overflow: scroll;
+    padding: .5em;
+} */
+/* 
+.memory .memory-item {
+    font-family: monospace;
+    text-align: center;
+    position: relative;
+    background: black;
+    width: calc( 100% / 8);
+    float: left;
+    font-size: 1.25em;
+    padding: .5em;
+    border: 1px solid #fff;
+    border-radius: 5px;
+}
+
+.memory .memory-item .debug {
+    padding: .5em;
+    position: absolute;
+    display: none;
+    z-index: 100;
+}
+
+.memory .memory-item:hover {
+    background: #fff !important;
+}
+
+.memory .memory-item:hover .debug {
+    display: inline-block;
+    background: #fff;
+    color: black;
+    width: auto;
+    top: 0;
+    right: 0;
+    transform: translateX(100%);
+}
+
+.memory .memory-item:hover .debug:hover {
+    display: none;
+}
+
+.memory .memory-item:hover:nth-child(8n) .debug,
+.memory .memory-item:hover:nth-child(8n-1) .debug,
+.memory .memory-item:hover:nth-child(8n-2) .debug {
+    right: auto;
+    left: 0;
+    transform: translateX(-100%);
+} */
+
+/* .registers {
+    background: orange;
+} */
+
+.registers .register-names,
+.registers .register-values {
+    height: 50%;
+    padding: .5em;
+    padding-right: 0;
+    padding-bottom: 1em;
+    font-family: monospace;
+    font-size: 1.25em;
+}
+
+.registers .register-names div,
+.registers .register-values div {
+    border-width: 2px;
+    font-weight: bolder;
+    width: calc(100% / 7 - 0.5em);
+    margin-right: .5em;
+    height: 100%;
+    float: left;
+    padding: .15em;
+    text-align: center;
+    background: #444;
+    color: #000;
+}
+
+.registers .register-names {
+    background: #a5a1a3;
+    padding-bottom: 0.25em;
+    border-radius: 5px, 5px, 5px ,5px;
+}
+
+.registers .register-names div {
+    background: #ff6347;
+    border: 1px solid #fff;
+    border-radius: 5px;
+}
+
+.registers .register-values {
+    font-size: 1em;
+    background: #a5a1a3;
+    padding-top: 0.25em;
+}
+
+.registers .register-values div {
+    background: #008080;
+    color: #000;
+    border: 1px solid #fff;
+    border-radius: 5px;
+}
+
+.decimal-to-hex {
+    background: #bebebe;
+    padding: .5em;
+    padding-top: 10px;
+    border-radius: 10px;
+}
+
+.decimal-to-hex label,
+.decimal-to-hex input {
+    float: left;
+    height: 50%;
+    font-family: monospace;
+}
+
+.decimal-to-hex label {
+    background: #6a5acd;
+    color: white;
+    width: 20%;
+    text-align: center;
+    padding: .25em;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.decimal-to-hex label:first-child {
+    background: #4169e1;
+    border: 1px solid white;
+    border-radius: 10px;
+
+}
+
+.decimal-to-hex input {
+    width: 75%;
+    padding-left: .5em;
+    background: #fff;
+    border: 1px solid #000;
+    border-radius: 10px;
+    margin-top: 1px;
+    margin-left: 10px;
+
+    
+}
+
+.decimal-to-hex input[name='hex'] {
+    background: #fff;
+    border: 1px solid black;
+    
+}
